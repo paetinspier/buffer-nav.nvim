@@ -31,9 +31,6 @@ local function create_window()
 end
 
 function M.OpenNav()
-	local buffers = get_buffers()
-	local window = create_window()
-
 	print("Buff asss nav")
 end
 
