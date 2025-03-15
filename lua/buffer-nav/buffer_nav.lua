@@ -34,10 +34,7 @@ function BufferNav.OpenNav()
 	local buffers = get_buffers()
 	local window = create_window()
 
-	local lines = {}
-	for i, buffer in ipairs(buffers) do
-		table.insert(lines, string.format("%d: %s", buffer.id, buffer.name))
-	end
+	print("Buff asss nav")
 end
 
 return BufferNav
