@@ -56,7 +56,7 @@ function M.OpenNav()
 	vim.keymap.set("n", "<CR>", function()
 		M.open_selected_buffer()
 	end, { buffer = buf, noremap = true, silent = true })
-	vim.keymap.set("n", "d", function()
+	vim.keymap.set("n", "x", function()
 		M.delete_selected_buffer()
 	end, { buffer = buf, noremap = true, silent = true })
 	vim.keymap.set("n", "q", function()
@@ -67,11 +67,15 @@ end
 function M.open_selected_buffer()
 	print("open")
 	if not floating_buf then
+		print("not floating_buf")
 		return
 	end
 	local cursor_pos = vim.api.nvim_win_get_cursor(floating_win) -- Get cursor row
+	print("cursor pos", cursor_pos)
 	local line = vim.api.nvim_buf_get_lines(floating_buf, cursor_pos[1] - 1, cursor_pos[1], false)[1]
+	print("line", line)
 	local buf_id = tonumber(line:match("^(%d+):"))
+	print("buf id", buf_id)
 	if buf_id then
 		vim.api.nvim_set_current_buf(buf_id)
 		M.close_window()
