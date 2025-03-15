@@ -24,25 +24,25 @@ local function my_cmd(opts)
 	local args = #fargs > 1 and vim.list_slice(fargs, 2, #fargs) or {}
 	local subcommand = subcommand_tbl[subcommand_key]
 	if not subcommand then
-		vim.notify("buffernav: Unknown command: " .. subcommand_key, vim.log.levels.ERROR)
+		vim.notify("BufferNav: Unknown command: " .. subcommand_key, vim.log.levels.ERROR)
 		return
 	end
 	-- Invoke the subcommand
 	subcommand.impl(args, opts)
 end
 
-vim.api.nvim_create_user_command("buffernav", my_cmd, {
+vim.api.nvim_create_user_command("BufferNav", my_cmd, {
 	nargs = "+",
 	desc = "My awesome command with subcommand completions",
 	complete = function(arg_lead, cmdline, _)
 		-- Get the subcommand.
-		local subcmd_key, subcmd_arg_lead = cmdline:match("^['<,'>]*buffernav[!]*%s(%S+)%s(.*)$")
+		local subcmd_key, subcmd_arg_lead = cmdline:match("^['<,'>]*BufferNav[!]*%s(%S+)%s(.*)$")
 		if subcmd_key and subcmd_arg_lead and subcommand_tbl[subcmd_key] and subcommand_tbl[subcmd_key].complete then
 			-- The subcommand has completions. Return them.
 			return subcommand_tbl[subcmd_key].complete(subcmd_arg_lead)
 		end
 		-- Check if cmdline is a subcommand
-		if cmdline:match("^['<,'>]*buffernav[!]*%s+%w*$") then
+		if cmdline:match("^['<,'>]*BufferNav[!]*%s+%w*$") then
 			-- Filter subcommands that match
 			local subcommand_keys = vim.tbl_keys(subcommand_tbl)
 			return vim.iter(subcommand_keys)
