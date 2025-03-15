@@ -33,7 +33,7 @@ end
 
 function M.OpenNav()
 	local buffers = get_buffers()
-	local window = create_window()
+	local buf, win = create_window()
 	print("Buff asss nav")
 
 	local lines = {}
