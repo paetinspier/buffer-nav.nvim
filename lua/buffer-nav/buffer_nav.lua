@@ -69,9 +69,7 @@ function M.OpenNav()
 end
 
 function M.open_selected_buffer()
-	print("open")
 	if not floating_buf then
-		print("not floating_buf")
 		return
 	end
 	local cursor_pos = vim.api.nvim_win_get_cursor(floating_win) -- Get cursor row
@@ -82,7 +80,7 @@ function M.open_selected_buffer()
 	print("buf id", buf_id)
 	if buf_id then
 		vim.api.nvim_set_current_buf(buf_id)
-		M.close_window()
+		-- M.close_window()
 	end
 end
 
