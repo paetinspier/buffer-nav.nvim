@@ -77,11 +77,8 @@ function M.open_selected_buffer()
 		return
 	end
 	local cursor_pos = vim.api.nvim_win_get_cursor(floating_win) -- Get cursor row
-	print("cursor pos", cursor_pos)
 	local line = vim.api.nvim_buf_get_lines(floating_buf, cursor_pos[1] - 1, cursor_pos[1], false)[1]
-	print("line", line)
 	local buf_id = tonumber(line:match("^(%d+):"))
-	print("buf id", buf_id)
 	if buf_id then
 		M.close_window()
 		if main_win and vim.api.nvim_win_is_valid(main_win) then
@@ -92,7 +89,6 @@ function M.open_selected_buffer()
 end
 
 function M.delete_selected_buffer()
-	print("delete")
 	if not floating_buf then
 		return
 	end
@@ -106,7 +102,6 @@ function M.delete_selected_buffer()
 end
 
 function M.close_window()
-	print("close")
 	if floating_win and vim.api.nvim_win_is_valid(floating_win) then
 		vim.api.nvim_win_close(floating_win, true)
 		floating_win = nil
