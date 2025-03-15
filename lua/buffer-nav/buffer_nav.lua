@@ -30,7 +30,7 @@ local function create_window()
 	return buf, win
 end
 
-function BufferNav.Open()
+function BufferNav.OpenNav()
 	local buffers = get_buffers()
 	local window = create_window()
 
