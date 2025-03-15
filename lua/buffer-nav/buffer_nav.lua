@@ -6,7 +6,9 @@ local function get_buffers()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			local name = vim.api.nvim_buf_get_name(buf)
-			table.insert(buffers, { id = buf, name = name ~= "" and name or "[No Name]" })
+			if name ~= "" then
+				table.insert(buffers, { id = buf, name = name ~= "" and name or "[No Name]" })
+			end
 		end
 	end
 	return buffers
