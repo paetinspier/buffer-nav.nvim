@@ -1,7 +1,5 @@
 local buffernav = require("buffer-nav.buffer_nav")
 
-print(vim.inspect(buffernav))
-
 ---@class CmdSubcommand
 ---@field impl fun(args: strings[], opts: table)
 ---@field complete? fun(subcmd_arg_lead: string): string[] (optional)
@@ -9,7 +7,6 @@ print(vim.inspect(buffernav))
 local subcommand_tbl = {
 	OpenNav = {
 		impl = function(args, opts)
-			print("buff ass nav?")
 			buffernav.OpenNav()
 		end,
 		-- this subcommand has no completions

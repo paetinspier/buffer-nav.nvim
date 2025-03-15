@@ -31,7 +31,16 @@ local function create_window()
 end
 
 function M.OpenNav()
+	local buffers = get_buffers()
+	local window = create_window()
 	print("Buff asss nav")
+
+	local lines = {}
+	for i, buffer in ipairs(buffers) do
+		table.insert(lines, string.format("%d: %s", buffer.id, buffer.name))
+	end
+
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 end
 
 return M
