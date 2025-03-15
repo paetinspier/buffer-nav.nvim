@@ -33,6 +33,10 @@ local function create_window()
 	}
 
 	local win = vim.api.nvim_open_win(buf, true, opts)
+
+	floating_win = win
+	floating_buf = buf
+
 	return buf, win
 end
 
