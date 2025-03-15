@@ -3,7 +3,7 @@ local M = {}
 local function get_buffers()
 	local buffers = {}
 
-	for _, buf in ipairs(vim.api.nvim_list_bufs) do
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			table.insert(buffers, { id = buf, name = name ~= "" and name or "[No Name]" })
 		end

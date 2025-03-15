@@ -1,4 +1,5 @@
 local BufferNav = require("buffer-nav.buffer_nav")
+print(vim.inspect(BufferNav))
 
 ---@class CmdSubcommand
 ---@field impl fun(args: strings[], opts: table)
