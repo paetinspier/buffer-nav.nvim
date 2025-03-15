@@ -14,6 +14,9 @@ local function get_buffers()
 	return buffers
 end
 
+local floating_win = nil
+local floating_buf = nil
+
 local function create_window()
 	local buf = vim.api.nvim_create_buf(false, true)
 	local width = math.floor(vim.o.columns * 0.4)
@@ -44,6 +47,55 @@ function M.OpenNav()
 	end
 
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+
+	-- Make buffer modifiable and remove default keymaps
+	vim.api.nvim_buf_set_option(buf, "modifiable", false)
+	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
+
+	-- Set keymaps for the buffer
+	vim.keymap.set("n", "<CR>", function()
+		M.open_selected_buffer()
+	end, { buffer = buf, noremap = true, silent = true })
+	vim.keymap.set("n", "d", function()
+		M.delete_selected_buffer()
+	end, { buffer = buf, noremap = true, silent = true })
+	vim.keymap.set("n", "q", function()
+		M.close_window()
+	end, { buffer = buf, noremap = true, silent = true }) -- Add quit shortcut
+end
+
+function M.open_selected_buffer()
+	if not floating_buf then
+		return
+	end
+	local cursor_pos = vim.api.nvim_win_get_cursor(floating_win) -- Get cursor row
+	local line = vim.api.nvim_buf_get_lines(floating_buf, cursor_pos[1] - 1, cursor_pos[1], false)[1]
+	local buf_id = tonumber(line:match("^(%d+):"))
+	if buf_id then
+		vim.api.nvim_set_current_buf(buf_id)
+		M.close_window()
+	end
+end
+
+function M.delete_selected_buffer()
+	if not floating_buf then
+		return
+	end
+	local cursor_pos = vim.api.nvim_win_get_cursor(floating_win)
+	local line = vim.api.nvim_buf_get_lines(floating_buf, cursor_pos[1] - 1, cursor_pos[1], false)[1]
+	local buf_id = tonumber(line:match("^(%d+):"))
+	if buf_id then
+		vim.api.nvim_buf_delete(buf_id, { force = true })
+		M.close_window()
+	end
+end
+
+function M.close_window()
+	if floating_win and vim.api.nvim_win_is_valid(floating_win) then
+		vim.api.nvim_win_close(floating_win, true)
+		floating_win = nil
+		floating_buf = nil
+	end
 end
 
 return M
