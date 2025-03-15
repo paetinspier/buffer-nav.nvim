@@ -31,7 +31,7 @@ local function create_window()
 		row = math.floor((vim.o.lines - height) / 2),
 		style = "minimal",
 		border = "rounded",
-		title = "Buff Ass Nav",
+		title = "   Buff Ass Nav   ",
 		title_pos = "left",
 	}
 
