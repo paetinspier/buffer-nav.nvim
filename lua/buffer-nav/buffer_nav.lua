@@ -1,4 +1,4 @@
-local BufferNav = {}
+local M = {}
 
 local function get_buffers()
 	local buffers = {}
@@ -30,11 +30,11 @@ local function create_window()
 	return buf, win
 end
 
-function BufferNav.OpenNav()
+function M.OpenNav()
 	local buffers = get_buffers()
 	local window = create_window()
 
 	print("Buff asss nav")
 end
 
-return BufferNav
+return M
