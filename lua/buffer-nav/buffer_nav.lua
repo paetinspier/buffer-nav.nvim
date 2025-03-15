@@ -16,6 +16,7 @@ end
 
 local floating_win = nil
 local floating_buf = nil
+local main_win = nil
 
 local function create_window()
 	local buf = vim.api.nvim_create_buf(false, true)
@@ -43,7 +44,8 @@ end
 function M.OpenNav()
 	local buffers = get_buffers()
 	local buf, win = create_window()
-	print("Buff asss nav")
+
+	main_win = vim.api.nvim_get_current_win()
 
 	local lines = {}
 	for i, buffer in ipairs(buffers) do
@@ -79,8 +81,11 @@ function M.open_selected_buffer()
 	local buf_id = tonumber(line:match("^(%d+):"))
 	print("buf id", buf_id)
 	if buf_id then
+		M.close_window()
+		if main_win and vim.api.nvim_win_is_valid(main_win) then
+			vim.api.nvim_set_current_win(main_win)
+		end
 		vim.api.nvim_set_current_buf(buf_id)
-		-- M.close_window()
 	end
 end
 
@@ -105,6 +110,20 @@ function M.close_window()
 		floating_win = nil
 		floating_buf = nil
 	end
+end
+
+function M.refresh_nav_window()
+	if not floating_win then
+		return
+	end
+
+	local buffers = get_buffers()
+	local lines = {}
+	for _, buffer in ipairs(buffers) do
+		table.insert(lines, string.format("%d: %s", buffer.id, buffer.name))
+	end
+
+	vim.api.nvim_buf_set_lines(floating_buf, 0, -1, false, lines)
 end
 
 return M
