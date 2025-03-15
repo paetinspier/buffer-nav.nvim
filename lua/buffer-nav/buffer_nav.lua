@@ -20,7 +20,7 @@ local main_win = nil
 
 local function create_window()
 	local buf = vim.api.nvim_create_buf(false, true)
-	local width = math.floor(vim.o.columns * 0.4)
+	local width = math.floor(vim.o.columns * 0.6)
 	local height = math.floor(vim.o.lines * 0.4)
 
 	local opts = {
@@ -31,6 +31,8 @@ local function create_window()
 		row = math.floor((vim.o.lines - height) / 2),
 		style = "minimal",
 		border = "rounded",
+		title = "Buff Ass Nav",
+		title_pos = "center",
 	}
 
 	local win = vim.api.nvim_open_win(buf, true, opts)
