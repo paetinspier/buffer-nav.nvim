@@ -32,7 +32,7 @@ local function create_window()
 		style = "minimal",
 		border = "rounded",
 		title = "Buff Ass Nav",
-		title_pos = "center",
+		title_pos = "left",
 	}
 
 	local win = vim.api.nvim_open_win(buf, true, opts)
