@@ -65,6 +65,7 @@ function M.OpenNav()
 end
 
 function M.open_selected_buffer()
+	print("open")
 	if not floating_buf then
 		return
 	end
@@ -78,6 +79,7 @@ function M.open_selected_buffer()
 end
 
 function M.delete_selected_buffer()
+	print("delete")
 	if not floating_buf then
 		return
 	end
@@ -91,6 +93,7 @@ function M.delete_selected_buffer()
 end
 
 function M.close_window()
+	print("close")
 	if floating_win and vim.api.nvim_win_is_valid(floating_win) then
 		vim.api.nvim_win_close(floating_win, true)
 		floating_win = nil
