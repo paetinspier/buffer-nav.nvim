@@ -114,7 +114,7 @@ function M.delete_selected_buffer()
 	local buf_id = tonumber(line:match("^(%d+):"))
 	if buf_id then
 		vim.api.nvim_buf_delete(buf_id, { force = true })
-		M.close_window()
+		-- M.close_window()
 	end
 end
 
