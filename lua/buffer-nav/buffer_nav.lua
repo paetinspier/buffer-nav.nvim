@@ -5,7 +5,20 @@ local function get_buffers()
 
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.api.nvim_buf_is_loaded(buf) then
-			local name = vim.api.nvim_buf_get_name(buf)
+			local buffer_name = vim.api.nvim_buf_get_name(buf)
+			local name = buffer_name
+			local parts = {}
+			for segment in string.gmatch(buffer_name, "[^/]+") do
+				parts[#parts + 1] = segment
+			end
+			local n = #parts
+			if n >= 2 then
+				local second_last = parts[n - 1]
+				local last = parts[n]
+
+				-- 3. append them however you like
+				name = "/" .. second_last .. "/" .. last
+			end
 			if name ~= "" then
 				table.insert(buffers, { id = buf, name = name ~= "" and name or "[No Name]" })
 			end
