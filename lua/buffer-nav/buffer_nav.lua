@@ -6,7 +6,7 @@ local function get_buffers()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.api.nvim_buf_is_loaded(buf) then
 			local buffer_name = vim.api.nvim_buf_get_name(buf)
-			local name = buffer_name
+			local title = buffer_name
 			local parts = {}
 			for segment in string.gmatch(buffer_name, "[^/]+") do
 				parts[#parts + 1] = segment
@@ -17,10 +17,13 @@ local function get_buffers()
 				local last = parts[n]
 
 				-- 3. append them however you like
-				name = second_last .. "/" .. last
+				title = second_last .. "/" .. last
 			end
-			if name ~= "" then
-				table.insert(buffers, { id = buf, name = name ~= "" and name or "[No Name]" })
+			if buffer_name ~= "" then
+				table.insert(
+					buffers,
+					{ id = buf, title = title, name = buffer_name ~= "" and buffer_name or "[No Name]" }
+				)
 			end
 		end
 	end
@@ -65,7 +68,7 @@ function M.OpenNav()
 	local lines = {}
 	for i, buffer in ipairs(buffers) do
 		-- table.insert(lines, string.format("%d: %s", buffer.id, buffer.name))
-		table.insert(lines, string.format("%s", buffer.name))
+		table.insert(lines, string.format("%s", buffer.title))
 	end
 
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
