@@ -17,7 +17,7 @@ local function get_buffers()
 				local last = parts[n]
 
 				-- 3. append them however you like
-				name = "/" .. second_last .. "/" .. last
+				name = second_last .. "/" .. last
 			end
 			if name ~= "" then
 				table.insert(buffers, { id = buf, name = name ~= "" and name or "[No Name]" })
