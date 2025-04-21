@@ -68,7 +68,7 @@ function M.OpenNav()
 	local lines = {}
 	for i, buffer in ipairs(buffers) do
 		-- table.insert(lines, string.format("%d: %s", buffer.id, buffer.name))
-		table.insert(lines, string.format("%s", buffer.title))
+		table.insert(lines, string.format("%d: %s", buffer.id, buffer.title))
 	end
 
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
